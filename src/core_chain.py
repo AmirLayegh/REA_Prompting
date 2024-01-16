@@ -5,7 +5,8 @@ import openai
 
 from src.labels import (
     TACRED_LABELS, 
-    TACREV_LABELS
+    TACREV_LABELS,
+    RETACRED_NL_LABELS,
 )
 
 
@@ -89,7 +90,7 @@ class ChainofRefinement:
             response = openai.ChatCompletion.create(
                 model=self.model_config.id,
                 messages=[
-                {"role": "system", "content": "You are a laconic assistant in information extraction. You reply with brief, to-the-point answers."},
+                {"role": "system", "content": "You are a helpful assistant in information extraction task. You reply with brief, to-the-point answers. Provide explanations for your answers."},
                 {"role": "user", "content": prompt},
                 ],
                 temperature=self.temperature,
@@ -188,6 +189,7 @@ class ChainofRefinement:
             relation_labels=self.labels,
         )
         refine_prompt = refine_prompt + self.task_config.sep.refine_command
+        print(f"""refine_prompt: {refine_prompt}""")
         refine_response = self.generate_gpt_response(
             refine_prompt, self.task_config.sep.max_tokens_refine
         )
@@ -227,6 +229,7 @@ class ChainofRefinement:
         
     def run_chain(self):
         all_results = []
+        print(self.labels)
         for rec in self.data:
             if not self.model_config.is_gpt:
                 sentence, head_entity, tail_entity, relation = self.process_record(rec)
@@ -257,7 +260,10 @@ class ChainofRefinement:
                     extract_response, refine_response, confidence_response, relation_extraction_response = self.extract_gpt_refinement_chain(
                         sentence, head_entity, tail_entity
                     )
-                    #print(f"""extract_response: {extract_response}""")
+                    # print(f"""extract_response: {extract_response}""")
+                    # print(f"""refine_response: {refine_response}""")
+                    # print(f"""confidence_response: {confidence_response}""")
+                    # print(f"""relation_extraction_response: {relation_extraction_response}""")
                     result = {
                         "sentence": sentence,
                         "head_entity": head_entity,
@@ -268,11 +274,13 @@ class ChainofRefinement:
                         "confidence_response": confidence_response,
                         "relation_extraction_response": relation_extraction_response,
                     }
+                    all_results.append(result)
+                    self.print_results(result)
             else:
                 print("Not implemented yet")
                 #TODO: implement for joint chain
         
-        result_file_path = f"results/{self.model_id}_{self.task}_{self.setting}_test.json"
+        result_file_path = f"results/{self.model_id}_{self.task}_{self.setting}_test2.json"
         with open(result_file_path, "w", encoding="utf-8") as json_file:
             json.dump(all_results, json_file, indent=2, ensure_ascii=False)
         

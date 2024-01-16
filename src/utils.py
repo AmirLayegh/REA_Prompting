@@ -9,11 +9,13 @@ from src.prompts import (
     CONFIDENCE_SCORE_PROMPT,
     RELATION_EXTRACTION_PROMPT,
     LABELS_MAPPING_PROMPT,
+    CONFIDENCE_SCORE_PROMPT2,
 )
 from src.labels import (
     TACRED_LABELS,
     TACREV_LABELS,
     RETACRED_LABELS,
+    RETACRED_NL_LABELS,
 )
 
 SETTINGS = ["sep", "joint"]
@@ -52,14 +54,14 @@ TASK_MAPPING = {
         id="TACRED",
         max_tokens=512,
         sep=SepConfig(
-            max_tokens_extract=150,
+            max_tokens_extract=300,
             max_tokens_refine=300,
             max_tokens_label_mapping=300,
-            max_tokens_confidence=300,
+            max_tokens_confidence=500,
             max_tokens_relation_extraction=100,
             extract_prompt=EXTRACT_ENTITY_TYPE_PROMPT,
             refine_prompt=REFINEMENT_LABELS_PROMPT,
-            confidence_prompt=CONFIDENCE_SCORE_PROMPT,
+            confidence_prompt=CONFIDENCE_SCORE_PROMPT2,
             relation_extraction_prompt=RELATION_EXTRACTION_PROMPT,
             label_mapping_prompt=LABELS_MAPPING_PROMPT,
             labels=TACRED_LABELS,
@@ -70,10 +72,10 @@ TASK_MAPPING = {
         id="TACREV",
         max_tokens=512,
         sep=SepConfig(
-            max_tokens_extract=150,
+            max_tokens_extract=300,
             max_tokens_refine=300,
             max_tokens_label_mapping=300,
-            max_tokens_confidence=300,
+            max_tokens_confidence=500,
             max_tokens_relation_extraction=100,
             extract_prompt=EXTRACT_ENTITY_TYPE_PROMPT, #TODO change this
             refine_prompt=REFINEMENT_LABELS_PROMPT,  #TODO change this
@@ -88,17 +90,17 @@ TASK_MAPPING = {
         id="ReTACRED",
         max_tokens=512,
         sep=SepConfig(
-            max_tokens_extract=150,
+            max_tokens_extract=300,
             max_tokens_refine=300,
             max_tokens_label_mapping=300,
-            max_tokens_confidence=300,
+            max_tokens_confidence=500,
             max_tokens_relation_extraction=100,
             extract_prompt=EXTRACT_ENTITY_TYPE_PROMPT, #TODO change this
             refine_prompt=REFINEMENT_LABELS_PROMPT,  #TODO change this
             confidence_prompt=CONFIDENCE_SCORE_PROMPT, #TODO change this
             relation_extraction_prompt=RELATION_EXTRACTION_PROMPT, #TODO change this
             label_mapping_prompt=LABELS_MAPPING_PROMPT, #TODO change this
-            labels=RETACRED_LABELS,
+            labels=RETACRED_NL_LABELS,
         ),
         joint = None,
     ),

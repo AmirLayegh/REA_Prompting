@@ -19,6 +19,8 @@ from src.labels import (
 )
 
 SETTINGS = ["sep", "joint"]
+
+
 @dataclasses.dataclass
 class SepConfig:
     max_tokens_extract: int
@@ -37,18 +39,16 @@ class SepConfig:
     label_mapping_command: str = "Mapped Relation Labels: "
     confidence_command: str = "relationship confidence scores: "
     relation_extraction_command: str = "the most appropriate relationship is: "
-    
-    
-    
-    
+
+
 @dataclasses.dataclass
 class TaskConfig:
     id: str
     max_tokens: int
     sep: SepConfig
     joint: None
-    
-    
+
+
 TASK_MAPPING = {
     "TACRED": TaskConfig(
         id="TACRED",
@@ -66,7 +66,7 @@ TASK_MAPPING = {
             label_mapping_prompt=LABELS_MAPPING_PROMPT,
             labels=TACRED_LABELS,
         ),
-        joint = None,
+        joint=None,
     ),
     "TACREV": TaskConfig(
         id="TACREV",
@@ -77,14 +77,14 @@ TASK_MAPPING = {
             max_tokens_label_mapping=300,
             max_tokens_confidence=500,
             max_tokens_relation_extraction=100,
-            extract_prompt=EXTRACT_ENTITY_TYPE_PROMPT, #TODO change this
-            refine_prompt=REFINEMENT_LABELS_PROMPT,  #TODO change this
-            confidence_prompt=CONFIDENCE_SCORE_PROMPT, #TODO change this
-            relation_extraction_prompt=RELATION_EXTRACTION_PROMPT, #TODO change this
-            label_mapping_prompt=LABELS_MAPPING_PROMPT, #TODO change this
+            extract_prompt=EXTRACT_ENTITY_TYPE_PROMPT,  # TODO change this
+            refine_prompt=REFINEMENT_LABELS_PROMPT,  # TODO change this
+            confidence_prompt=CONFIDENCE_SCORE_PROMPT,  # TODO change this
+            relation_extraction_prompt=RELATION_EXTRACTION_PROMPT,  # TODO change this
+            label_mapping_prompt=LABELS_MAPPING_PROMPT,  # TODO change this
             labels=TACREV_LABELS,
         ),
-        joint = None,
+        joint=None,
     ),
     "ReTACRED": TaskConfig(
         id="ReTACRED",
@@ -95,14 +95,14 @@ TASK_MAPPING = {
             max_tokens_label_mapping=300,
             max_tokens_confidence=500,
             max_tokens_relation_extraction=100,
-            extract_prompt=EXTRACT_ENTITY_TYPE_PROMPT, #TODO change this
-            refine_prompt=REFINEMENT_LABELS_PROMPT,  #TODO change this
-            confidence_prompt=CONFIDENCE_SCORE_PROMPT, #TODO change this
-            relation_extraction_prompt=RELATION_EXTRACTION_PROMPT, #TODO change this
-            label_mapping_prompt=LABELS_MAPPING_PROMPT, #TODO change this
+            extract_prompt=EXTRACT_ENTITY_TYPE_PROMPT,  # TODO change this
+            refine_prompt=REFINEMENT_LABELS_PROMPT,  # TODO change this
+            confidence_prompt=CONFIDENCE_SCORE_PROMPT,  # TODO change this
+            relation_extraction_prompt=RELATION_EXTRACTION_PROMPT,  # TODO change this
+            label_mapping_prompt=LABELS_MAPPING_PROMPT,  # TODO change this
             labels=RETACRED_NL_LABELS,
         ),
-        joint = None,
+        joint=None,
     ),
     "SemEval": TaskConfig(
         id="SemEval",
@@ -113,14 +113,14 @@ TASK_MAPPING = {
             max_tokens_label_mapping=300,
             max_tokens_confidence=300,
             max_tokens_relation_extraction=100,
-            extract_prompt=EXTRACT_ENTITY_TYPE_PROMPT, #TODO change this
-            refine_prompt=REFINEMENT_LABELS_PROMPT,  #TODO change this
-            confidence_prompt=CONFIDENCE_SCORE_PROMPT, #TODO change this
-            relation_extraction_prompt=RELATION_EXTRACTION_PROMPT, #TODO change this
-            label_mapping_prompt=LABELS_MAPPING_PROMPT, #TODO change this
+            extract_prompt=EXTRACT_ENTITY_TYPE_PROMPT,  # TODO change this
+            refine_prompt=REFINEMENT_LABELS_PROMPT,  # TODO change this
+            confidence_prompt=CONFIDENCE_SCORE_PROMPT,  # TODO change this
+            relation_extraction_prompt=RELATION_EXTRACTION_PROMPT,  # TODO change this
+            label_mapping_prompt=LABELS_MAPPING_PROMPT,  # TODO change this
             labels=None,
         ),
-        joint = None,
+        joint=None,
     ),
     "FewRel": TaskConfig(
         id="FewRel",
@@ -131,16 +131,17 @@ TASK_MAPPING = {
             max_tokens_label_mapping=300,
             max_tokens_confidence=300,
             max_tokens_relation_extraction=100,
-            extract_prompt=EXTRACT_ENTITY_TYPE_PROMPT, #TODO change this
-            refine_prompt=REFINEMENT_LABELS_PROMPT,  #TODO change this
-            confidence_prompt=CONFIDENCE_SCORE_PROMPT, #TODO change this
-            relation_extraction_prompt=RELATION_EXTRACTION_PROMPT, #TODO change this
-            label_mapping_prompt=LABELS_MAPPING_PROMPT, #TODO change this
+            extract_prompt=EXTRACT_ENTITY_TYPE_PROMPT,  # TODO change this
+            refine_prompt=REFINEMENT_LABELS_PROMPT,  # TODO change this
+            confidence_prompt=CONFIDENCE_SCORE_PROMPT,  # TODO change this
+            relation_extraction_prompt=RELATION_EXTRACTION_PROMPT,  # TODO change this
+            label_mapping_prompt=LABELS_MAPPING_PROMPT,  # TODO change this
             labels=None,
         ),
-        joint = None,
+        joint=None,
     ),
 }
+
 
 @dataclasses.dataclass
 class ModelConfig:
@@ -148,7 +149,8 @@ class ModelConfig:
     prompt_format: str
     is_protected: bool
     is_gpt: bool
-    
+
+
 MISTRAL_PROMPT_FORMAT = (
     "<|system|>\n</s>\n<|user|>\n{prompt}</s>\n<|assistant|>\n {command}\n"
 )
@@ -182,12 +184,13 @@ MODEL_MAPPING = {
         is_gpt=False,
     ),
     "gpt": ModelConfig(
-        id = "gpt-3.5-turbo",
-        prompt_format = None,
-        is_protected = False,
-        is_gpt = True,
+        id="gpt-3.5-turbo",
+        prompt_format=None,
+        is_protected=False,
+        is_gpt=True,
     ),
 }
+
 
 def import_model_and_tokenizer(model: ModelConfig, access_token: str = None):
     bnb_config = BitsAndBytesConfig(
@@ -196,7 +199,7 @@ def import_model_and_tokenizer(model: ModelConfig, access_token: str = None):
         bnb_4bit_quant_type="nf4",
         bnb_4bit_compute_dtype=torch.bfloat16,
     )
-    
+
     if model.is_protected:
         if access_token is None:
             raise ValueError(
@@ -215,12 +218,9 @@ def import_model_and_tokenizer(model: ModelConfig, access_token: str = None):
                                                               quantization_config=bnb_config,
                                                               use_cache=True,
                                                               device_map="auto")
-    
-            
+
     tokenizer = AutoTokenizer.from_pretrained(model.id)
     tokenizer.pad_token = tokenizer.eos_token
     tokenizer.padding_side = "right"
-    
+
     return language_model, tokenizer
-    
-    

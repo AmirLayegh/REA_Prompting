@@ -1,4 +1,4 @@
-#from data.data_processor import read_json_txt_file
+# from data.data_processor import read_json_txt_file
 from src.core_chain import ChainofRefinement
 from src.labels import TACRED_LABELS, TACREV_LABELS, RETACRED_NL_LABELS
 from data.data_processor import read_json_txt_tacrev, read_json_txt_file, filter_and_sample_records
@@ -29,21 +29,18 @@ else:
 #         continue
 
 data = filter_and_sample_records(data, labels=TACRED_LABELS, sample_size=1000)
-#data = data[:30]
+# data = data[:30]
 
 chain = ChainofRefinement(
-    #model_id = "llama2_70b",
-    model_id= "gpt",
-    top_p = 0.9,
-    temperature = 0.001,
-    task = 'TACRED',
-    setting = 'sep',
-    data = data,
-    access_token = access_token,
-    #labels = TACRED_LABELS
-    )
+    # model_id = "llama2_70b",
+    model_id="gpt",
+    top_p=0.9,
+    temperature=0.001,
+    task='TACRED',
+    setting='sep',
+    data=data,
+    access_token=access_token,
+    # labels = TACRED_LABELS
+)
 
 chain.run_chain()
-    
-    
-    

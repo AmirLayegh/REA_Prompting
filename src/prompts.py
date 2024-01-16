@@ -52,7 +52,6 @@ Actual Tail Entity: {tail_entity}
 Actual pre-defined list of relation labels: {relation_labels}
 Actual Refined Relation Labels: {refined_relation_labels}"""
 
-
 CONFIDENCE_SCORE_PROMPT = """Given the 'input text', 'head entity', 'tail entity', and 'refined relation labels', determine the relationship confidence score for each of the three refined relation labels in the form of:
 
 (Head Entity) (Head entity type) has been [RELATIONSHIP] (Tail Entity) (Tail entity type) with a confidence level of [CONFIDENCE].
@@ -82,7 +81,7 @@ tail entity: {tail_entity}
 
 refined relation labels: {refined_relation_labels}"""
 
-CONFIDENCE_SCORE_PROMPT2= """Given the 'input text', 'head entity', 'tail entity', 'entity types', and 'refined relation labels', create sentences that convey the relationship confidence score for each of the three refined relation labels:
+CONFIDENCE_SCORE_PROMPT2 = """Given the 'input text', 'head entity', 'tail entity', 'entity types', and 'refined relation labels', create sentences that convey the relationship confidence score for each of the three refined relation labels:
 Example input text: John Smith an English scientist in the fielad of astronomy, invented the reflecting telescope in 1668.
 Example head entity: John Smith
 Example tail entity: English

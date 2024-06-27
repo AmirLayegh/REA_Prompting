@@ -18,11 +18,6 @@ echo "PYTHONPATH is: $PYTHONPATH"
 
 echo "Current working directory is: $(pwd)"
 
-#export PYTHONPATH=/proj/layegh/users/x_amila/CoV:$PYTHONPATH
 
+apptainer exec --env OPENAI_API_KEY="OPEN_AI_KEY" --nv  SIF_FILE.sif python3  main.py
 
-#apptainer exec  --nv  /proj/layegh/users/x_amila/CoV/Project/nebula.sif python3 /proj/layegh/users/x_amila/CoV/Project/main.py
-
-apptainer exec --env OPENAI_API_KEY=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 --nv  /proj/layegh/users/x_amila/CoV/Project/nebula.sif python3  /proj/layegh/users/x_amila/ChainofRefinement/main.py
-
-#apptainer exec --env OPENAI_API_KEY=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 nebula.sif python3 re_zephyr.py

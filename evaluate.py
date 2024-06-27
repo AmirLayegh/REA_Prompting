@@ -26,7 +26,11 @@ def calculate_manual_metrics(data_path):
     for record in data:
         true_label = record["relation"]
         predicted_label = record["relation_extraction_response"]
+        
+        # this line for getting the first relation of the refinement
+        #predicted_label = record["refine_response"].split("1. ")[1].split("(most relevant)")[0].strip()
 
+        #uncomment for gpt-3.5
         for label in class_labels:
             if true_label == label and predicted_label == label:
                 true_positives[label] += 1
@@ -34,6 +38,16 @@ def calculate_manual_metrics(data_path):
                 false_negatives[label] += 1
             elif predicted_label == label:
                 false_positives[label] += 1
+        
+        #uncomment for Mixtral
+        # for label in class_labels:
+        #     if label == true_label and label in predicted_label:
+        #         true_positives[label] += 1
+        #     elif label == true_label:
+        #         false_negatives[label] += 1
+        #     elif label in predicted_label:
+        #         false_positives[label] += 1
+                
 
     # Calculate micro precision, recall, and F1 score
     total_true_positives = sum(true_positives.values())
@@ -73,8 +87,9 @@ def calculate_manual_metrics(data_path):
 
 # Example usage:
 
-data_path = './results/gpt_FewRel_sep_test_m=10.json'
+#data_path = './results/gpt_FewRel_sep_test_m=15.json'
 
+data_path = "./results/gpt_wiki_joint_test_m=15.json"
 micro_f1, macro_f1, micro_precision, macro_precision, micro_recall, macro_recall = calculate_manual_metrics(data_path)
 
 print(f"Micro F1: {micro_f1}")

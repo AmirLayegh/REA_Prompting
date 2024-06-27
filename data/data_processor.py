@@ -20,11 +20,6 @@ def read_json_txt_file(file_path):
     
     return json_data
 
-def read_json_txt_tacrev(file_path):
-    with open(file_path, 'r', encoding='utf-8') as file:
-        records = [ast.literal_eval(line) for line in file]
-
-    return records
 
 def filter_and_sample_records(json_data, labels, sample_size=1000):
     filtered_records = [record for record in json_data if record['relation'] != 'NA']
@@ -45,11 +40,42 @@ def filter_and_sample_records(json_data, labels, sample_size=1000):
 
     return sampled_records
 
-# def process_record(record):
-#     sentence = record['token']
-#     sentence = " ".join(sentence)
-#     head_entity = record['h']['name']
-#     tail_entity = record['t']['name']
-#     relation = record['relation']
-#     return sentence, head_entity, tail_entity, relation
+def filter_and_sample_records_wiki(json_data, labels, sample_size=1000):
+    label_records = defaultdict(list)
+    for record in json_data:
+        sentence = record['sentence']
+        relations = record['relations']
+        for relation in relations:
+            relation_type = relation['type']
+            if relation_type in labels:
+                label_records[relation_type].append(record)
+    
+    sampled_records = []
+    
+    for label, records in label_records.items():
+        random.shuffle(records)
+        sampled_records.extend(records[:sample_size // len(labels)])
+    
+    return sampled_records
+    
+    
+
+def save_json_txt_file(data, file_path):
+    with open(file_path, 'w', encoding='utf-8') as file:
+        for record in data:
+            json.dump(record, file, ensure_ascii=False)
+            file.write('\n')
+            
+def sample_fewrel_dataset(fewrel_data, m):
+    
+    unique_relations = set(record['relation'] for record in fewrel_data)
+    sampled_relations = random.sample(unique_relations, m)
+    sampled_fewrel_data = [record for record in fewrel_data if record['relation'] in sampled_relations]
+    #save_json_txt_file(sampled_fewrel_data, output_path)
+    return sampled_fewrel_data
+
+def read_wiki_file(path):
+    with open(path, 'r') as file:
+        data = json.load(file)
+    return data
 

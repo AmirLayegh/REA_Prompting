@@ -3,6 +3,9 @@
 
 This repository contains the implementation and experimental framework for the paper “REA: Refine-Estimate-Answer Prompting for Zero-Shot Relation Extraction,” focusing on enhancing machine understanding of unstructured text without prior training data.
 
+![REA Zero-Shot Relation Extraction Process](/rea.jpg)
+
+
 ## Quick Start 🚀
 
 ### Prerequisites 📋

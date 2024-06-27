@@ -15,19 +15,13 @@ This repository contains the implementation and experimental framework for the p
 
 ### Installation 🔧
 
-1. **Clone the repository**:
-   ```
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
-   ```
-
-2. **Set up a Python virtual environment**:
+1. **Set up a Python virtual environment**:
    ```
    conda create -n REA python=3.10
    conda activate REA
    ```
 
-3. **Install dependencies**:
+2. **Install dependencies**:
    ```
    pip install -r requirements.txt
    ```

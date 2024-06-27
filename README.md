@@ -42,7 +42,7 @@ For cluster environments using SLURM:
 2. **Build the Apptainer container** using the provided `my_apptainer.def` file:
    ```bash
    # Build the Apptainer container
-   apptainer build my_container.sif my_apptainer.def
+   apptainer build SI_FILE.sif my_apptainer.def
    ```
 3. **Run the REA experiments within the Apptainer container** by submitting the SLURM `chain_job`:
    ```bash

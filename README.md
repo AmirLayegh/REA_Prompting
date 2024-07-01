@@ -56,7 +56,7 @@ This script leverages a single GPU and runs experiments for up to 48 hours.
 Utilize these datasets:
 - TACRED
 - FewRel
-- Wiki
+- Wiki-ZSL
 
 Place your dataset files in designated directories as outlined in `main.py`.
 

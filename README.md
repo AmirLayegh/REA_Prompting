@@ -64,6 +64,19 @@ Place your dataset files in designated directories as outlined in `main.py`.
 
 Contributions are welcome! Please submit pull requests or open issues for improvements or bug fixes.
 
-## Citation 📄
 
-This paper has been presented but is not yet published. You can access the full text on the author's personal page [here](https://amirlayegh.github.io/files/REA_Prompting.pdf).
+## Paper 📄
+
+You can access the full paper at the following link: [Original Paper]((https://link.springer.com/chapter/10.1007/978-3-031-70239-6_21)).
+
+### BibTeX Citation
+```bibtex
+@inproceedings{layegh2024rea,
+  title={REA: Refine-Estimate-Answer Prompting for Zero-Shot Relation Extraction},
+  author={Layegh, Amirhossein and Payberah, Amir H and Matskin, Mihhail},
+  booktitle={International Conference on Applications of Natural Language to Information Systems},
+  pages={301--316},
+  year={2024},
+  organization={Springer}
+}
+

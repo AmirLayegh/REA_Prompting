@@ -67,7 +67,7 @@ Contributions are welcome! Please submit pull requests or open issues for improv
 
 ## Paper 📄
 
-You can access the full paper at the following link: [Original Paper]((https://link.springer.com/chapter/10.1007/978-3-031-70239-6_21)).
+You can access the full paper at the following link: [Original Paper](https://link.springer.com/chapter/10.1007/978-3-031-70239-6_21).
 
 ### BibTeX Citation
 ```bibtex
